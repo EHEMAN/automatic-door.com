@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP32 Remote Control</title>
+    <style>
+        /* Styling untuk remote control */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .remote-container {
+            text-align: center;
+        }
+        .button {
+            width: 100px;
+            height: 50px;
+            margin: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            color: #fff;
+        }
+        .on {
+            background-color: #28a745; /* Hijau untuk On */
+        }
+        .off {
+            background-color: #dc3545; /* Merah untuk Off */
+        }
+    </style>
+</head>
+<body>
+    <div class="remote-container">
+        <h1>ESP32 Remote Control</h1>
+        <button id="onButton" class="button on">On</button>
+        <button id="offButton" class="button off">Off</button>
+    </div>
+
+    <script>
+        // Ganti IP berikut dengan alamat IP ESP32 yang tampil di Serial Monitor
+        const esp32Ip = "192.168.0.3";  // Alamat IP ESP32
+
+        // Menambahkan event listener untuk tombol On
+        document.getElementById("onButton").addEventListener("click", function() {
+            fetch(`${esp32Ip}/on`)
+            .then(response => response.text())
+            .then(data => console.log(data))
+            .catch(error => console.error('Error:', error));
+        });
+
+        // Menambahkan event listener untuk tombol Off
+        document.getElementById("offButton").addEventListener("click", function() {
+            fetch(`${esp32Ip}/off`)
+            .then(response => response.text())
+            .then(data => console.log(data))
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
